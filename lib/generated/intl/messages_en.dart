@@ -33,6 +33,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Don’t have an account"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "email_address": MessageLookupByLibrary.simpleMessage("Email address"),
+        "enter_your_email":
+            MessageLookupByLibrary.simpleMessage("Enter your email"),
+        "enter_your_name":
+            MessageLookupByLibrary.simpleMessage("Enter your name"),
+        "enter_your_password":
+            MessageLookupByLibrary.simpleMessage("Enter your password"),
         "find_your_dream_car":
             MessageLookupByLibrary.simpleMessage("Find your dream car"),
         "follow_us_on": MessageLookupByLibrary.simpleMessage("Follow us on"),

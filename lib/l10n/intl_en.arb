@@ -26,5 +26,8 @@
     "complete_registration": "Complete Registration",
     "search_for_honda_pilot_7_passenger": "Search for Honda Pilot 7-Passenger",
     "recommended": "Recommended",
-    "see_all": "See all"
+    "see_all": "See all",
+    "enter_your_name": "Enter your name",
+    "enter_your_email": "Enter your email",
+    "enter_your_password": "Enter your password"
 }

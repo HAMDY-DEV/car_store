@@ -19,6 +19,7 @@ class CustomTextFormField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.hintFontSize,
+    this.validator,
     this.alignment,
     this.keyboardType,
     required this.hintText,
@@ -37,6 +38,7 @@ class CustomTextFormField extends StatelessWidget {
   TextEditingController? controller;
   void Function(String)? onChanged;
   void Function(String)? onFieldSubmitted;
+ String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,7 @@ class CustomTextFormField extends StatelessWidget {
       alignment: alignment ?? Alignment.center,
       decoration: decoration,
       child: TextFormField(
+        validator: validator ,
           keyboardType: keyboardType,
           onChanged: onChanged,
           minLines: minLines ?? 1,

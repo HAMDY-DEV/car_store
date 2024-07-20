@@ -3,6 +3,7 @@ import 'package:car_store/core/util/colors.dart';
 import 'package:car_store/core/util/const_image.dart';
 import 'package:car_store/core/util/text_style.dart';
 import 'package:car_store/core/widget/custom_button.dart';
+import 'package:car_store/features/auth/presentation/manager/auth_cubit.dart';
 import 'package:car_store/features/auth/presentation/view/login_view.dart';
 import 'package:car_store/features/auth/presentation/view/register_view.dart';
 import 'package:car_store/generated/l10n.dart';
@@ -19,6 +20,15 @@ class WelcomeView extends StatefulWidget {
 }
 
 class _WelcomeViewState extends State<WelcomeView> {
+
+
+  @override
+  void initState() {
+    super.initState();
+    AuthCubit().chakUser(context);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
