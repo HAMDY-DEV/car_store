@@ -8,14 +8,14 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class BottomNavigationView extends StatefulWidget {
+  const BottomNavigationView({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<BottomNavigationView> createState() => _BottomNavigationViewState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _BottomNavigationViewState extends State<BottomNavigationView> {
   final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
   int _page = 2;
   final List<Widget> _widgetOptions = [

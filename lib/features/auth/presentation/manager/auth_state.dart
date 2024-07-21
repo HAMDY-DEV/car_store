@@ -2,7 +2,6 @@ sealed class AuthState {}
 
 final class AuthInitial extends AuthState {}
 
-
 //Login States
 final class LoginLoading extends AuthState {}
 
@@ -23,3 +22,17 @@ final class ForgotPasswordLoading extends AuthState {}
 final class ForgotPasswordSuccess extends AuthState {}
 
 final class ForgotPasswordError extends AuthState {}
+
+//Complete Registration
+final class CompleteRegistrationLoading extends AuthState {}
+
+final class CompleteRegistrationSuccess extends AuthState {}
+
+final class CompleteRegistrationError extends AuthState {}
+
+//Upload Photo
+final class UploadPhotoLoading extends AuthState {}
+
+final class UploadPhotoSuccess extends AuthState {}
+
+final class UploadPhotoError extends AuthState {}

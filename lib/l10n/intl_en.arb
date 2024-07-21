@@ -29,5 +29,7 @@
     "see_all": "See all",
     "enter_your_name": "Enter your name",
     "enter_your_email": "Enter your email",
-    "enter_your_password": "Enter your password"
+    "enter_your_password": "Enter your password",
+    "address": "Address",
+    "enter_your_address": "Enter your address"
 }

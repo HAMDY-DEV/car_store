@@ -1,5 +1,6 @@
 import 'package:car_store/core/function/routing.dart';
 import 'package:car_store/core/function/show_error_dialogs.dart';
+import 'package:car_store/core/widget/bottom_navigation_bar.dart';
 import 'package:car_store/features/auth/presentation/manager/auth_state.dart';
 import 'package:car_store/features/auth/presentation/view/complete_registration_view.dart';
 import 'package:car_store/features/auth/presentation/view/welcome_view.dart';
@@ -19,8 +20,8 @@ class AuthCubit extends Cubit<AuthState> {
       } else {
         if (user.photoURL == 'false') {
           navigatorToAndRemoveUntil(context, const CompleteRegistrationView());
-        } else {
-          navigatorToAndRemoveUntil(context, const HomeView());
+        } else if (user.photoURL == 'true') {
+          navigatorToAndRemoveUntil(context, const BottomNavigationView());
         }
       }
     });
@@ -53,53 +54,51 @@ class AuthCubit extends Cubit<AuthState> {
       required String email,
       required String password}) async {
     emit(RegisterLoading());
-    User? user = FirebaseAuth.instance.currentUser;
+
     await FirebaseAuth.instance
         .createUserWithEmailAndPassword(
       email: email,
       password: password,
     )
         .then((onValue) {
+      User? user = FirebaseAuth.instance.currentUser;
       CollectionReference users =
           FirebaseFirestore.instance.collection('users');
-
       users.doc(user!.uid).set(
         {
           'name': name,
           'email': email,
           'company': company,
           'uid': user.uid,
-          'photoURL': '',
-          'phone': '',
           'password': password,
-          'address': '',
           'latitude': '',
           'longitude': '',
           'isVerified': 'false',
         },
         SetOptions(merge: true),
-      );
-      user.updateDisplayName(company.toString());
-      user.updatePhotoURL('false');
-      navigatorToAndRemoveUntil(context, const CompleteRegistrationView());
-      emit(RegisterSuccess());
+      ).then((onValue) {
+        user.updateDisplayName(company.toString());
+        user.updatePhotoURL('false');
+        emit(RegisterSuccess());
+        navigatorToAndRemoveUntil(context, const CompleteRegistrationView());
+      }).catchError((onError) {
+        showToast(msg: onError.toString());
+      });
     }).catchError((onError) {
       emit(RegisterError());
       showToast(msg: onError.toString());
     });
   }
 
-
   //Forget Password
   void forgetPassword({required context, required String email}) {
     FirebaseAuth.instance.sendPasswordResetEmail(email: email).then((value) {
       showToast(msg: 'Check your email');
+      navigatorPop(context);
     }).catchError((onError) {
       showToast(msg: onError.toString());
     });
   }
-
-
 
   //Logout
   void logout(context) {
@@ -107,12 +106,34 @@ class AuthCubit extends Cubit<AuthState> {
     navigatorToAndRemoveUntil(context, const WelcomeView());
   }
 
-
-
   // complete registration
-  void completeRegistration(context) {
-    
+  void completeRegistration({
+    context,
+    required String photoURL,
+    required String phone1,
+    required String phone2,
+    required String address,
+  }) {
+    emit(CompleteRegistrationLoading());
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+    User? user = FirebaseAuth.instance.currentUser;
+    users.doc(user!.uid).set(
+      {
+        'photoURL': photoURL,
+        'phone1': phone1,
+        'phone2': phone2,
+        'address': address,
+        'latitude': '',
+        'longitude': '',
+        'favorites': []
+      },
+      SetOptions(merge: true),
+    ).then((onValue) {
+      user.updatePhotoURL('true');
+      navigatorToAndRemoveUntil(context, const HomeView());
+      emit(CompleteRegistrationSuccess());
+    }).catchError((onError) {
+      emit(CompleteRegistrationError());
+    });
   }
-
-  
 }

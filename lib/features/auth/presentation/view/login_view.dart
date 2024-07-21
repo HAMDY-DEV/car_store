@@ -106,7 +106,7 @@ class _LoginViewState extends State<LoginView> {
                       GestureDetector(
                         onTap: () {
                           navigatorToReplacement(
-                              context, const ForgotPasswordView());
+                              context,  ForgotPasswordView());
                         },
                         child: Text(
                           S.of(context).forgot_password,
