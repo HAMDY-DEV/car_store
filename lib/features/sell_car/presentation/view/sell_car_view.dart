@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:car_store/core/function/show_error_dialogs.dart';
 import 'package:car_store/core/util/colors.dart';
 import 'package:car_store/core/util/contaner_style.dart';
@@ -279,10 +278,34 @@ class _SellCarViewState extends State<SellCarView> {
                                 mainAxisSpacing: 10,
                               ),
                               itemBuilder: (context, index) {
-                                return Image.file(
-                                  height: 150.h,
-                                  File(imageFileList![index].path),
-                                  fit: BoxFit.cover,
+                                return Stack(
+                                  children: [
+                                    Image.file(
+                                      height: 150.h,
+                                      File(imageFileList![index].path),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    Positioned(
+                                        top: 5.h,
+                                        right: 5.w,
+                                        child: InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              imageFileList!.removeAt(index);
+                                            });
+                                          },
+                                          child: CircleAvatar(
+                                            backgroundColor:
+                                                AppColors.whiteColor,
+                                            radius: 10,
+                                            child: Icon(
+                                              Icons.close,
+                                              size: 15.r,
+                                              color: AppColors.blackColor,
+                                            ),
+                                          ),
+                                        )),
+                                  ],
                                 );
                               },
                             ),
@@ -290,6 +313,9 @@ class _SellCarViewState extends State<SellCarView> {
                         : const SizedBox(),
                     Gap(10.h),
                     InkWell(
+                      onLongPress: () {
+                        // uploadPhoto(image: File(imageFileList![0].path));
+                      },
                       onTap: () {
                         selectImage();
                       },
@@ -319,18 +345,27 @@ class _SellCarViewState extends State<SellCarView> {
                               modelController.text.isNotEmpty &&
                               priceController.text.isNotEmpty &&
                               descriptionController.text.isNotEmpty) {
-                            cubit.sellYourCar(
-                                title: titleController.text,
-                                selectedOption: _selectedOption,
-                                year: yearController.text,
-                                brand: brandController.text,
-                                model: modelController.text,
-                                alarm: _alarm!,
-                                cruiseControl: _cruiseControl!,
-                                price: priceController.text,
-                                description: descriptionController.text,
-                                bluetooth: _bluetooth!,
-                                frontParkingSensor: _frontParkingSensor!);
+                            if (imageFileList!.isNotEmpty) {
+                              if (imageFileList!.length == 3) {
+                                cubit.sellYourCar(
+                                    fileList: imageFileList!,
+                                    title: titleController.text,
+                                    selectedOption: _selectedOption,
+                                    year: yearController.text,
+                                    brand: brandController.text,
+                                    model: modelController.text,
+                                    alarm: _alarm!,
+                                    cruiseControl: _cruiseControl!,
+                                    price: priceController.text,
+                                    description: descriptionController.text,
+                                    bluetooth: _bluetooth!,
+                                    frontParkingSensor: _frontParkingSensor!);
+                              } else {
+                                showToast(msg: 'Please select 3 images');
+                              }
+                            } else {
+                              showToast(msg: 'Please select 3 image');
+                            }
                           } else {
                             showToast(msg: 'All fields are required');
                           }

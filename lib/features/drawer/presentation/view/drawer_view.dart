@@ -1,3 +1,4 @@
+import 'package:car_store/core/function/routing.dart';
 import 'package:car_store/core/function/show_error_dialogs.dart';
 import 'package:car_store/core/util/colors.dart';
 import 'package:car_store/core/util/contaner_style.dart';
@@ -6,6 +7,7 @@ import 'package:car_store/core/widget/custom_button.dart';
 import 'package:car_store/features/auth/presentation/manager/auth_cubit.dart';
 import 'package:car_store/features/profile_view/presentation/manager/profile_cubit.dart';
 import 'package:car_store/features/profile_view/presentation/manager/profile_state.dart';
+import 'package:car_store/features/sell_car/presentation/view/sell_car_view.dart';
 import 'package:car_store/generated/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -79,6 +81,19 @@ class DrawerView extends StatelessWidget {
                   );
                 }
               },
+            ),
+            Gap(20.h),
+            ListTile(
+              leading: Icon(Icons.directions_car_filled,
+                  color: AppColors.primaryColor),
+              onTap: () {
+                navigatorTo(context, const SellCarView());
+              },
+              title: Text(
+                S.of(context).show_car_for_sale,
+                style: getTitleStyle(context,
+                    fontSize: 20.sp, color: AppColors.primaryColor),
+              ),
             ),
             Gap(20.h),
             ListTile(

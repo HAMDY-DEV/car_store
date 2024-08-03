@@ -3,7 +3,6 @@ import 'package:car_store/core/function/show_error_dialogs.dart';
 import 'package:car_store/core/util/colors.dart';
 import 'package:car_store/core/util/const_image.dart';
 import 'package:car_store/core/util/text_style.dart';
-import 'package:car_store/core/widget/bottom_navigation_bar.dart';
 import 'package:car_store/core/widget/custom_button.dart';
 import 'package:car_store/core/widget/show_loading_and_error.dart';
 import 'package:car_store/features/auth/presentation/manager/auth_cubit.dart';

@@ -410,6 +410,16 @@ class S {
     );
   }
 
+  /// `Show car for sale`
+  String get show_car_for_sale {
+    return Intl.message(
+      'Show car for sale',
+      name: 'show_car_for_sale',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Almost there!`
   String get almost_there {
     return Intl.message(

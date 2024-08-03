@@ -65,6 +65,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "see_all": MessageLookupByLibrary.simpleMessage("See all"),
         "send_link": MessageLookupByLibrary.simpleMessage("Send link"),
         "share_the_app": MessageLookupByLibrary.simpleMessage("Share the app"),
+        "show_car_for_sale":
+            MessageLookupByLibrary.simpleMessage("Show car for sale"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
