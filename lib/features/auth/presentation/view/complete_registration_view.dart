@@ -1,8 +1,11 @@
 import 'dart:io';
+import 'package:car_store/core/function/routing.dart';
 import 'package:car_store/core/function/show_error_dialogs.dart';
 import 'package:car_store/core/util/colors.dart';
 import 'package:car_store/core/util/text_style.dart';
+import 'package:car_store/core/widget/bottom_navigation_bar.dart';
 import 'package:car_store/core/widget/custom_button.dart';
+import 'package:car_store/core/widget/show_loading_and_error.dart';
 import 'package:car_store/features/auth/presentation/manager/auth_cubit.dart';
 import 'package:car_store/features/auth/presentation/manager/auth_state.dart';
 import 'package:car_store/features/auth/presentation/widget/costom_text_form_field.dart';
@@ -14,6 +17,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:geolocator/geolocator.dart';
 
 class CompleteRegistrationView extends StatefulWidget {
   const CompleteRegistrationView({super.key});
@@ -31,9 +35,50 @@ class _CompleteRegistrationViewState extends State<CompleteRegistrationView> {
   TextEditingController phone1Controller = TextEditingController();
 
   TextEditingController phone2Controller = TextEditingController();
- 
+
   String? profileUrl;
   File? file;
+  bool? pickerImageLodeing;
+
+  double? latitude;
+  double? longitude;
+
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition();
+  }
 
   Future<void> _pickImage() async {
     final ImagePicker pickerImage = ImagePicker();
@@ -48,6 +93,7 @@ class _CompleteRegistrationViewState extends State<CompleteRegistrationView> {
   }
 
   Future<String> uploadPhoto({required File image}) async {
+    showLottieDialog(context: context, lottieAsset: 'assets/json/loding.json');
     final FirebaseAuth auth = FirebaseAuth.instance;
     Reference ref = FirebaseStorage.instanceFor(
             bucket: 'gs://car-store-2024.appspot.com') //
@@ -58,7 +104,7 @@ class _CompleteRegistrationViewState extends State<CompleteRegistrationView> {
     await ref.putFile(image, metadata);
     String url;
     try {
-      setState(() {});
+      navigatorPop(context);
       url = await ref.getDownloadURL();
       setState(() {});
       return url;
@@ -73,7 +119,15 @@ class _CompleteRegistrationViewState extends State<CompleteRegistrationView> {
     return BlocProvider(
       create: (context) => AuthCubit(),
       child: Scaffold(
-        body: BlocBuilder<AuthCubit, AuthState>(
+        body: BlocConsumer<AuthCubit, AuthState>(
+          listener: (context, state) {
+            if (state is CompleteRegistrationSuccess) {
+              navigatorToAndRemoveUntil(context, const BottomNavigationView());
+            } else if (state is CompleteRegistrationLoading) {
+              showLottieDialog(
+                  context: context, lottieAsset: 'assets/json/loding.json');
+            }
+          },
           builder: (context, state) {
             return Form(
               key: formKey,
@@ -135,7 +189,13 @@ class _CompleteRegistrationViewState extends State<CompleteRegistrationView> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            _determinePosition().then((onValue) {
+                              latitude = onValue.latitude;
+                              longitude = onValue.longitude;
+                              
+                            });
+                          },
                           icon: const Icon(Icons.location_on),
                         ),
                         Text(
@@ -190,13 +250,21 @@ class _CompleteRegistrationViewState extends State<CompleteRegistrationView> {
                       text: S.of(context).complete_registration,
                       color: AppColors.whiteColor,
                       onTap: () {
+
                         if (formKey.currentState!.validate()) {
                           if (profileUrl != null) {
-                            AuthCubit.get(context).completeRegistration(
+                            if (latitude != null && longitude != null) {
+                              AuthCubit.get(context).completeRegistration(
                                 photoURL: profileUrl!,
                                 phone1: phone1Controller.text,
                                 phone2: phone2Controller.text,
-                                address: adressController.text);
+                                address: adressController.text,
+                                latitude: latitude.toString(),
+                                longitude: longitude.toString(),
+                              );
+                            } else {
+                              showToast(msg: 'Please select your location');
+                            }
                           } else {
                             showToast(msg: 'Please upload your photo');
                           }

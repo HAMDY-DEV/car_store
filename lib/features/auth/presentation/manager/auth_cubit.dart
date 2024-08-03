@@ -4,7 +4,6 @@ import 'package:car_store/core/widget/bottom_navigation_bar.dart';
 import 'package:car_store/features/auth/presentation/manager/auth_state.dart';
 import 'package:car_store/features/auth/presentation/view/complete_registration_view.dart';
 import 'package:car_store/features/auth/presentation/view/welcome_view.dart';
-import 'package:car_store/features/home/presentation/view/home_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,14 +34,9 @@ class AuthCubit extends Cubit<AuthState> {
     FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) {
-      emit(LoginSuccess());
-      if (user!.photoURL == 'false') {
-        navigatorToAndRemoveUntil(context, const CompleteRegistrationView());
-      } else {
-        navigatorToAndRemoveUntil(context, const HomeView());
-      }
+      emit(LoginSuccess(user: user));
     }).catchError((onError) {
-      emit(LoginError());
+      emit(LoginError(msg: onError.toString()));
     });
   }
 
@@ -80,13 +74,11 @@ class AuthCubit extends Cubit<AuthState> {
         user.updateDisplayName(company.toString());
         user.updatePhotoURL('false');
         emit(RegisterSuccess());
-        navigatorToAndRemoveUntil(context, const CompleteRegistrationView());
       }).catchError((onError) {
         showToast(msg: onError.toString());
       });
     }).catchError((onError) {
-      emit(RegisterError());
-      showToast(msg: onError.toString());
+      emit(RegisterError(msg: onError.toString()));
     });
   }
 
@@ -108,31 +100,33 @@ class AuthCubit extends Cubit<AuthState> {
 
   // complete registration
   void completeRegistration({
-    context,
     required String photoURL,
     required String phone1,
     required String phone2,
     required String address,
+    required String latitude,
+    required String longitude,
   }) {
     emit(CompleteRegistrationLoading());
     CollectionReference users = FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
+
     users.doc(user!.uid).set(
       {
         'photoURL': photoURL,
         'phone1': phone1,
         'phone2': phone2,
         'address': address,
-        'latitude': '',
-        'longitude': '',
+        'latitude': latitude,
+        'longitude': longitude,
         'favorites': []
       },
       SetOptions(merge: true),
     ).then((onValue) {
       user.updatePhotoURL('true');
-      navigatorToAndRemoveUntil(context, const HomeView());
       emit(CompleteRegistrationSuccess());
     }).catchError((onError) {
+      showToast(msg: onError.toString());
       emit(CompleteRegistrationError());
     });
   }

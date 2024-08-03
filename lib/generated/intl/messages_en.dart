@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "address": MessageLookupByLibrary.simpleMessage("Address"),
+        "almost_there": MessageLookupByLibrary.simpleMessage("Almost there!"),
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
         "buyer": MessageLookupByLibrary.simpleMessage("Buyer"),
@@ -55,18 +56,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "phone_number1": MessageLookupByLibrary.simpleMessage("Phone number 1"),
         "phone_number2": MessageLookupByLibrary.simpleMessage("Phone number 2"),
+        "privacy_policy":
+            MessageLookupByLibrary.simpleMessage("Privacy policy"),
         "recommended": MessageLookupByLibrary.simpleMessage("Recommended"),
         "search_for_honda_pilot_7_passenger":
             MessageLookupByLibrary.simpleMessage(
                 "Search for Honda Pilot 7-Passenger"),
         "see_all": MessageLookupByLibrary.simpleMessage("See all"),
         "send_link": MessageLookupByLibrary.simpleMessage("Send link"),
+        "share_the_app": MessageLookupByLibrary.simpleMessage("Share the app"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "welcome_to_carStore":
             MessageLookupByLibrary.simpleMessage("Welcome to CarStore"),
         "welcome_to_car_store":
-            MessageLookupByLibrary.simpleMessage("Welcome to Car Store")
+            MessageLookupByLibrary.simpleMessage("Welcome to Car Store"),
+        "who_are_we": MessageLookupByLibrary.simpleMessage("Who are we")
       };
 }

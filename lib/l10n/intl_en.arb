@@ -31,5 +31,9 @@
     "enter_your_email": "Enter your email",
     "enter_your_password": "Enter your password",
     "address": "Address",
-    "enter_your_address": "Enter your address"
+    "enter_your_address": "Enter your address",
+    "who_are_we": "Who are we",
+    "privacy_policy": "Privacy policy",
+    "share_the_app": "Share the app",
+    "almost_there": "Almost there!"
 }

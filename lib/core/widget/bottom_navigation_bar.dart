@@ -1,6 +1,7 @@
 import 'package:car_store/core/util/colors.dart';
 import 'package:car_store/features/auction_view/presentation/view/auction_view.dart';
 import 'package:car_store/features/chat_view/presentation/view/chat_view.dart';
+import 'package:car_store/features/drawer/presentation/view/drawer_view.dart';
 import 'package:car_store/features/favorite_view/presentation/view/favorite_view.dart';
 import 'package:car_store/features/home/presentation/view/home_view.dart';
 import 'package:car_store/features/profile_view/presentation/view/profile_view.dart';
@@ -39,9 +40,7 @@ class _BottomNavigationViewState extends State<BottomNavigationView> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      drawer: const Drawer(
-        child: Text('Drawer'),
-      ),
+      drawer: const DrawerView(),
       body: Center(child: _widgetOptions[_page]),
       bottomNavigationBar: CurvedNavigationBar(
         key: _bottomNavigationKey,

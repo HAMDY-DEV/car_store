@@ -1,10 +1,14 @@
 import 'package:car_store/core/function/routing.dart';
+import 'package:car_store/core/function/show_error_dialogs.dart';
 import 'package:car_store/core/util/colors.dart';
 import 'package:car_store/core/util/const_image.dart';
 import 'package:car_store/core/util/text_style.dart';
+import 'package:car_store/core/widget/bottom_navigation_bar.dart';
 import 'package:car_store/core/widget/custom_button.dart';
+import 'package:car_store/core/widget/show_loading_and_error.dart';
 import 'package:car_store/features/auth/presentation/manager/auth_cubit.dart';
 import 'package:car_store/features/auth/presentation/manager/auth_state.dart';
+import 'package:car_store/features/auth/presentation/view/complete_registration_view.dart';
 import 'package:car_store/features/auth/presentation/view/login_view.dart';
 import 'package:car_store/features/auth/presentation/widget/costom_text_form_field.dart';
 import 'package:car_store/generated/l10n.dart';
@@ -27,7 +31,19 @@ class RegisterView extends StatelessWidget {
     return BlocProvider(
       create: (context) => AuthCubit(),
       child: Scaffold(
-        body: BlocBuilder<AuthCubit, AuthState>(
+        body: BlocConsumer<AuthCubit, AuthState>(
+          listener: (context, state) {
+            if (state is RegisterSuccess) {
+              navigatorToAndRemoveUntil(
+                  context, const CompleteRegistrationView());
+            } else if (state is RegisterError) {
+              navigatorPop(context);
+              showToast(msg: state.toString());
+            } else {
+              showLottieDialog(
+                  context: context, lottieAsset: 'assets/json/loding.json');
+            }
+          },
           builder: (context, state) {
             AuthCubit cubit = AuthCubit.get(context);
             return SingleChildScrollView(

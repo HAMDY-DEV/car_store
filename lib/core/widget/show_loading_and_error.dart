@@ -27,11 +27,11 @@ showError({required context, required textError}) {
       content: Text(textError)));
 }
 
-showSnackBar({required context, required textError}) {
+showSnackBar({required context, required text}) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       duration: const Duration(seconds: 1),
       backgroundColor: AppColors.primaryColor,
-      content: Text(textError)));
+      content: Text(text)));
 }
 
 showCustomDialog({required context, required child, actions, title}) {
