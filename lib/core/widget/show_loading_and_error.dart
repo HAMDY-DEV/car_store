@@ -13,6 +13,7 @@ showLoading({required context}) {
           child: RiveAnimation.asset(
             'assets/riv/loading_book.riv',
             fit: BoxFit.cover,
+            
           ),
         ),
       );
