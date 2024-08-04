@@ -27,4 +27,3 @@ void navigatorToAndRemoveUntil(context, view) {
     },
   ), (route) => false);
 }
-

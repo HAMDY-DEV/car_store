@@ -4,12 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeListItem extends StatelessWidget {
-  const HomeListItem({
+  HomeListItem({
     super.key,
+    this.cars,
   });
 
+  final dynamic cars;
   @override
   Widget build(BuildContext context) {
+   
     return Container(
       padding: const EdgeInsets.all(10),
       height: 190.h,
@@ -24,9 +27,8 @@ class HomeListItem extends StatelessWidget {
                 width: 175.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.r),
-                  image: const DecorationImage(
-                      image: NetworkImage(
-                          'https://media.hatla2eestatic.com/uploads/car/2024/03/12/6340519/full_up_e3636eca8c92f8b669c630f836ffc590.jpg'),
+                  image: DecorationImage(
+                      image: NetworkImage(cars['photoUrl'][0]),
                       fit: BoxFit.fill),
                 ),
               ),
@@ -43,21 +45,28 @@ class HomeListItem extends StatelessWidget {
                         color: AppColors.whiteColor,
                         borderRadius: BorderRadius.circular(20.r),
                       ),
-                      child: Icon(
-                        Icons.favorite,
-                        color: AppColors.primaryColor,
-                        size: 17.r,
-                      )),
+                      child: cars['favorite'] == true
+                          ? Icon(
+                              Icons.favorite,
+                              color: AppColors.primaryColor,
+                              size: 17.r,
+                            )
+                          : Icon(
+                              Icons.favorite_border,
+                              color: AppColors.primaryColor,
+                              size: 17.r,
+                            )),
                 ),
               )
             ],
           ),
           Text(
-            'Audi e-tron Premium',
+            cars['title'],
+            overflow: TextOverflow.ellipsis,
             style: getBodyStyle(context, fontSize: 14.sp),
           ),
           Text(
-            'Rs. 54,77,823.73',
+            '\$ ${cars['price']}',
             style: getBodyStyle(context,
                 fontSize: 12.sp, color: AppColors.greyColor),
           ),

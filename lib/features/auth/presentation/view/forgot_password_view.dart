@@ -69,8 +69,8 @@ class ForgotPasswordView extends StatelessWidget {
                       CustomButton(
                         onTap: () {
                           if (formKey.currentState!.validate()) {
-                            AuthCubit.get(context)
-                                .forgetPassword(context: context, email: emailController.text);
+                            AuthCubit.get(context).forgetPassword(
+                                context: context, email: emailController.text);
                           }
                         },
                         width: 366.w,

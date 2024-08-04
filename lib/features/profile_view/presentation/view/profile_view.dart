@@ -145,9 +145,9 @@ class ProfileView extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                             onTap: () {
-                              navigatorTo(context, const CarDetails());
+                              navigatorTo(context,  CarDetails());
                             },
-                            child: const HomeListItem());
+                            child:  HomeListItem());
                       },
                       itemCount: 10,
                       shrinkWrap: true,

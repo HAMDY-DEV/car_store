@@ -1,3 +1,4 @@
+import 'package:car_store/core/util/colors.dart';
 import 'package:car_store/core/util/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,6 +20,7 @@ class CustomChacBox extends StatelessWidget {
         Checkbox(
           value: value,
           onChanged: onChanged,
+          activeColor: AppColors.primaryColor,
         ),
         Text(text.toString(),
             style: getBodyStyle(context,

@@ -13,9 +13,8 @@ final class LoginSuccess extends AuthState {
 }
 
 final class LoginError extends AuthState {
- String? msg;
+  String? msg;
   LoginError({required this.msg});
-  
 }
 
 //Register States

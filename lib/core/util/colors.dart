@@ -7,5 +7,4 @@ class AppColors {
   static Color greyColor = Colors.grey;
   //static Color secondryColor = const Color(0xff7CDDC4);
   static Color redColor = Colors.red;
-
 }

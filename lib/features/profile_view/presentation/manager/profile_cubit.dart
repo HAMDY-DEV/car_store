@@ -12,7 +12,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     CollectionReference users = FirebaseFirestore.instance.collection('users');
     users.doc(userId).get().then((value) {
       emit(ProfileSuccess(data: value.data() as Map<String, dynamic>));
-    }).catchError((onError){
+    }).catchError((onError) {
       emit(ProfileError());
     });
   }

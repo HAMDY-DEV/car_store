@@ -36,8 +36,6 @@ class SellCubit extends Cubit<SellState> {
   Future<void> sellYourCar({
     required String title,
     required String selectedOption,
-    required String year,
-    required String brand,
     required String model,
     required String price,
     required String description,
@@ -60,9 +58,8 @@ class SellCubit extends Cubit<SellState> {
         await uploadPhoto(
             image: File(fileList[2].path), path: ref.key!, ket: '${ref.key!}3'),
       ],
-      "selectedOption": selectedOption,
-      "year": year,
-      "brand": brand,
+      "condition": selectedOption,
+      "favorite": false,
       "model": model,
       "alarm": alarm,
       "cruiseControl": cruiseControl,

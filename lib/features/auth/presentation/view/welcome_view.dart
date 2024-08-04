@@ -20,14 +20,11 @@ class WelcomeView extends StatefulWidget {
 }
 
 class _WelcomeViewState extends State<WelcomeView> {
-
-
   @override
   void initState() {
     super.initState();
     AuthCubit().chakUser(context);
   }
-
 
   @override
   Widget build(BuildContext context) {

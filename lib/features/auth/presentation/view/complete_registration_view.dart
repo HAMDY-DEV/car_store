@@ -193,7 +193,6 @@ class _CompleteRegistrationViewState extends State<CompleteRegistrationView> {
                             _determinePosition().then((onValue) {
                               latitude = onValue.latitude;
                               longitude = onValue.longitude;
-                              
                             });
                           },
                           icon: const Icon(Icons.location_on),
@@ -250,7 +249,6 @@ class _CompleteRegistrationViewState extends State<CompleteRegistrationView> {
                       text: S.of(context).complete_registration,
                       color: AppColors.whiteColor,
                       onTap: () {
-
                         if (formKey.currentState!.validate()) {
                           if (profileUrl != null) {
                             if (latitude != null && longitude != null) {

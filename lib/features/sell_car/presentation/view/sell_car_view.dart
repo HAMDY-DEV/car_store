@@ -24,8 +24,6 @@ class SellCarView extends StatefulWidget {
 
 class _SellCarViewState extends State<SellCarView> {
   TextEditingController titleController = TextEditingController();
-  TextEditingController yearController = TextEditingController();
-  TextEditingController brandController = TextEditingController();
   TextEditingController modelController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
@@ -39,8 +37,8 @@ class _SellCarViewState extends State<SellCarView> {
   final ImagePicker imagePicker = ImagePicker();
   List<XFile>? imageFileList = [];
   void selectImage() async {
-    final List<XFile>? selectdImage = await imagePicker.pickMultiImage();
-    if (selectdImage!.isNotEmpty) {
+    final List<XFile> selectdImage = await imagePicker.pickMultiImage();
+    if (selectdImage.isNotEmpty) {
       imageFileList!.addAll(selectdImage);
     }
     setState(() {});
@@ -101,7 +99,7 @@ class _SellCarViewState extends State<SellCarView> {
                           flex: 5,
                         ),
                         Text(
-                          'Year',
+                          'Model',
                           style: getTitleStyle(context,
                               fontSize: 16.sp, fontWeight: FontWeight.w600),
                         ),
@@ -150,43 +148,11 @@ class _SellCarViewState extends State<SellCarView> {
                           child: CustomTextFormField(
                             keyboardType: TextInputType.number,
                             hintText: 'Model',
-                            controller: yearController,
+                            controller: modelController,
                           ),
                         ),
                       ],
                     ),
-                    Gap(20.h),
-                    Row(
-                      children: [
-                        Text(
-                          'Brand',
-                          style: getBodyStyle(context,
-                              fontSize: 14.sp, fontWeight: FontWeight.w600),
-                        ),
-                        const Spacer(),
-                        Gap(10.h),
-                        Text(
-                          'Model',
-                          style: getBodyStyle(context,
-                              fontSize: 14.sp, fontWeight: FontWeight.w600),
-                        ),
-                        const Spacer()
-                      ],
-                    ),
-                    Row(children: [
-                      Expanded(
-                        child: CustomTextFormField(
-                            hintText: 'Select Brand',
-                            controller: brandController),
-                      ),
-                      Gap(10.h),
-                      Expanded(
-                        child: CustomTextFormField(
-                          hintText: 'Select Model',
-                          controller: modelController,
-                        ),
-                      ),
-                    ]),
                     Gap(20.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -243,8 +209,10 @@ class _SellCarViewState extends State<SellCarView> {
                           fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
                     CustomTextFormField(
+                      width: 160.w,
                       hintText: 'Enter Price',
                       hintFontSize: 12.sp,
+                      keyboardType: TextInputType.number,
                       controller: priceController,
                     ),
                     Gap(20.h),
@@ -340,8 +308,6 @@ class _SellCarViewState extends State<SellCarView> {
                         color: AppColors.whiteColor,
                         onTap: () {
                           if (titleController.text.isNotEmpty &&
-                              yearController.text.isNotEmpty &&
-                              brandController.text.isNotEmpty &&
                               modelController.text.isNotEmpty &&
                               priceController.text.isNotEmpty &&
                               descriptionController.text.isNotEmpty) {
@@ -351,8 +317,6 @@ class _SellCarViewState extends State<SellCarView> {
                                     fileList: imageFileList!,
                                     title: titleController.text,
                                     selectedOption: _selectedOption,
-                                    year: yearController.text,
-                                    brand: brandController.text,
                                     model: modelController.text,
                                     alarm: _alarm!,
                                     cruiseControl: _cruiseControl!,
