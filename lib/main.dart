@@ -1,4 +1,5 @@
 import 'package:car_store/core/services/bloc.dart';
+import 'package:car_store/core/services/token.dart';
 import 'package:car_store/core/util/colors.dart';
 import 'package:car_store/features/splash_screen/presentation/view/splash_screen_view.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -12,6 +13,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   ScreenUtil.ensureScreenSize();
   await Firebase.initializeApp();
+  IsInBoarding.init();
   Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (_, child) {
         return MaterialApp(
-          themeMode: ThemeMode.dark,
+          themeMode: ThemeMode.system,
           debugShowCheckedModeBanner: false,
           locale: const Locale('en'),
           localizationsDelegates: const [
@@ -39,6 +41,9 @@ class MyApp extends StatelessWidget {
           ],
           supportedLocales: S.delegate.supportedLocales,
           theme: ThemeData(
+            appBarTheme: const AppBarTheme(
+              elevation: 0,
+            ),
             inputDecorationTheme: InputDecorationTheme(
               disabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: AppColors.whiteColor),

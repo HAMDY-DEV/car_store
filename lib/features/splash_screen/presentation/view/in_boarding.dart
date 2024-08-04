@@ -1,4 +1,5 @@
 import 'package:car_store/core/function/routing.dart';
+import 'package:car_store/core/services/token.dart';
 import 'package:car_store/core/util/colors.dart';
 import 'package:car_store/features/auth/presentation/view/welcome_view.dart';
 import 'package:car_store/generated/l10n.dart';
@@ -50,10 +51,14 @@ class _InBoardingState extends State<InBoarding> {
       doneText: S.of(context).login_now,
       nextText: S.of(context).next,
       onSkip: () {
+        IsInBoarding.siveIsInBoarding(isInBoarding: true);
         navigatorToAndRemoveUntil(context, const WelcomeView());
+
       },
       onDone: () {
+        IsInBoarding.siveIsInBoarding(isInBoarding: true);
         navigatorToAndRemoveUntil(context, const WelcomeView());
+
       },
     );
   }

@@ -1,5 +1,4 @@
 import 'package:car_store/core/util/colors.dart';
-import 'package:car_store/core/util/contaner_style.dart';
 import 'package:car_store/core/util/text_style.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';

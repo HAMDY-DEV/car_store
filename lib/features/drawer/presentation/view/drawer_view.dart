@@ -60,18 +60,20 @@ class DrawerView extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Positioned(
-                          left: 85.w,
-                          top: 140.h,
-                          child: Container(
-                            decoration: decoration,
-                            child: Icon(
-                              Icons.verified,
-                              size: 20.r,
-                              color: Colors.blueAccent,
-                            ),
-                          ),
-                        ),
+                        state.data['isVerified'] == 'true'
+                            ? Positioned(
+                                left: 85.w,
+                                top: 140.h,
+                                child: Container(
+                                  decoration: decoration,
+                                  child: Icon(
+                                    Icons.verified,
+                                    size: 20.r,
+                                    color: Colors.blueAccent,
+                                  ),
+                                ),
+                              )
+                            : const SizedBox(),
                       ],
                     ),
                   );

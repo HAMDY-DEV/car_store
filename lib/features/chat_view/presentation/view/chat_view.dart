@@ -1,6 +1,8 @@
+import 'package:car_store/core/function/routing.dart';
 import 'package:car_store/core/util/colors.dart';
 import 'package:car_store/core/util/contaner_style.dart';
 import 'package:car_store/core/util/text_style.dart';
+import 'package:car_store/features/chat_view/presentation/view/my_chat_View.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -52,29 +54,34 @@ class ChatView extends StatelessWidget {
       ),
       body: ListView.builder(
         itemBuilder: (context, index) {
-          return Container(
-            decoration: decoration,
-            padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-            margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-            child: ListTile(
-              leading: CircleAvatar(
-                backgroundImage: const AssetImage('assets/images/hamdy.jpg'),
-                radius: 30.r,
-              ),
-              title: Text(
-                'Hamdy Fathy',
-                style: getTitleStyle(context),
-              ),
-              subtitle: Text(
-                'hello how are you',
-                style: getSmallStyle(context),
-              ),
-              trailing: CircleAvatar(
-                radius: 10.r,
-                backgroundColor: Colors.green,
-                child: Text(
-                  '2',
-                  style: getSmallStyle(context, color: Colors.white),
+          return InkWell(
+            onTap: () {
+              navigatorTo(context, MyChatView());
+            },
+            child: Container(
+              decoration: decoration,
+              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+              margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+              child: ListTile(
+                leading: CircleAvatar(
+                  backgroundImage: const AssetImage('assets/images/hamdy.jpg'),
+                  radius: 30.r,
+                ),
+                title: Text(
+                  'Hamdy Fathy',
+                  style: getTitleStyle(context),
+                ),
+                subtitle: Text(
+                  'hello how are you',
+                  style: getSmallStyle(context),
+                ),
+                trailing: CircleAvatar(
+                  radius: 10.r,
+                  backgroundColor: Colors.green,
+                  child: Text(
+                    '2',
+                    style: getSmallStyle(context, color: Colors.white),
+                  ),
                 ),
               ),
             ),

@@ -1,6 +1,8 @@
 import 'package:car_store/core/function/routing.dart';
+import 'package:car_store/core/services/token.dart';
 import 'package:car_store/core/util/colors.dart';
 import 'package:car_store/core/util/const_image.dart';
+import 'package:car_store/core/widget/bottom_navigation_bar.dart';
 import 'package:car_store/features/splash_screen/presentation/view/in_boarding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,7 +19,7 @@ class _SplashScreenViewState extends State<SplashScreenView> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 3), () {
-      navigatorToReplacement(context, const InBoarding());
+      IsInBoarding.getIsInBoarding() ??false ? navigatorToReplacement(context, const BottomNavigationView()) :  navigatorToReplacement(context, const InBoarding());
     });
     super.initState();
   }
