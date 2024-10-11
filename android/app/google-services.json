@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "890052968608",
+    "firebase_url": "https://car-store-2024-default-rtdb.firebaseio.com",
+    "project_id": "car-store-2024",
+    "storage_bucket": "car-store-2024.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:890052968608:android:0910e5bae2d6b34de749c5",
+        "android_client_info": {
+          "package_name": "com.example.car_store"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5UHwKmbZqxs7ZhtiMtgVnlVSbEFBHPhI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
