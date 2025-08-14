@@ -7,7 +7,6 @@ import 'package:car_store/features/auction_view/presentation/manager/auction_sta
 import 'package:car_store/features/auction_view/presentation/widget/auction_list_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AuctionView extends StatelessWidget {

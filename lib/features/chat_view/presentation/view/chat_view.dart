@@ -13,9 +13,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class ChatView extends StatelessWidget {
-  ChatView({super.key, required this.idChat});
+  const ChatView({super.key, required this.idChat});
 
-  String idChat;
+  final String idChat;
 
   @override
   Widget build(BuildContext context) {

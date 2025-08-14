@@ -1,6 +1,5 @@
 import 'package:car_store/core/util/colors.dart';
 import 'package:car_store/features/auction_view/presentation/view/auction_view.dart';
-import 'package:car_store/features/chat_view/presentation/view/ai_chat_view.dart';
 import 'package:car_store/features/chat_view/presentation/view/my_chat_View.dart';
 import 'package:car_store/features/drawer/presentation/view/drawer_view.dart';
 import 'package:car_store/features/favorite_view/presentation/view/favorite_view.dart';

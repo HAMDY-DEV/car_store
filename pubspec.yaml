@@ -54,7 +54,7 @@ dependencies:
   geocoding: ^3.0.0
   geolocator: ^14.0.2
   google_fonts: ^6.2.1
-  google_generative_ai: ^0.4.5
+  google_generative_ai: ^0.4.7
   google_maps_flutter: ^2.7.0
   image_picker: ^1.1.2
   intl: ^0.20.2

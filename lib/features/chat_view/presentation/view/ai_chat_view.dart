@@ -1,3 +1,4 @@
+// lib/features/chat/view/ai_chat_view.dart
 import 'package:car_store/core/util/colors.dart';
 import 'package:car_store/core/util/text_style.dart';
 import 'package:chat_bubbles/bubbles/bubble_special_one.dart';
@@ -16,8 +17,8 @@ class AiChatView extends StatefulWidget {
 }
 
 class ModelMessage {
-  final String message;
-  final String sender;
+  final String message; // نص الرسالة
+  final String sender;  // 'user' | 'ai' | 'system'
   final DateTime time;
 
   ModelMessage({
@@ -31,77 +32,94 @@ class _AiChatViewState extends State<AiChatView> {
   final List<ModelMessage> _messages = [];
   final ScrollController _scrollController = ScrollController();
 
-  static const String apiKey =
-      'AIzaSyCH6nQVDrzqiypqUEUfOIen5zbQOjLLDrA'; // Replace with your API key
-  final model = GenerativeModel(model: "gemini-pro", apiKey: apiKey);
+  // ✅ بناءً على طلبك، الكي داخل الكود
+  static const String apiKey = 'AIzaSyCP61BzboL6kjcvhCPxjoIp6UuaFVXESsk';
 
-  String text = 'قل لي مرحبأ بك في تطبيق Car Store رساله قصيره';
+  late final GenerativeModel _model;
+  ChatSession? _chat; // للحفاظ على سياق المحادثة
+  bool _isTyping = false;
 
-  bool show = false;
+  final String _welcomePrompt = 'قل لي مرحبًا بك في تطبيق Car Store رسالة قصيرة.';
 
   @override
   void initState() {
     super.initState();
-    sendMessages(text);
+    // 👇 استخدم موديل مدعوم
+    _model = GenerativeModel(model: 'gemini-1.5-flash', apiKey: apiKey);
+    _chat = _model.startChat(history: []);
+    _sendAi(_welcomePrompt, addUserBubble: false);
   }
 
-  void sendMessages(String text) async {
-    try {
-      final content = [Content.text(text)];
-      final response = await model.generateContent(content);
-      setState(() {
-        _messages.add(
-          ModelMessage(
-            message: response.text ?? 'No response from AI.',
-            sender: 'ai',
-            time: DateTime.now(),
-          ),
-        );
-        _scrollToBottom(); // Ensure we scroll to the bottom
-      });
-    } catch (e) {
-      // You might want to handle the error or notify the user
-    }
-  }
+  Future<void> _sendAi(String text, {bool addUserBubble = true}) async {
+    if (!mounted) return;
 
-  Future<void> sendMessage(String message) async {
-    setState(() {
-      _messages.add(ModelMessage(
-        message: message,
+    if (addUserBubble) {
+      _addMessage(ModelMessage(
+        message: text,
         sender: 'user',
         time: DateTime.now(),
       ));
-      _scrollToBottom(); // Scroll to bottom when a new message is added
-    });
+    }
+
+    _setTyping(true);
 
     try {
-      final content = [Content.text(message)];
-      final response = await model.generateContent(content);
-      setState(() {
-        _messages.add(
-          ModelMessage(
-            message: response.text ?? 'No response from AI.',
-            sender: 'ai',
-            time: DateTime.now(),
-          ),
-        );
-        _scrollToBottom(); // Ensure we scroll to the bottom
-      });
+      final response = await _chat!.sendMessage(Content.text(text));
+      final aiText = response.text?.trim();
+
+      _addMessage(
+        ModelMessage(
+          message: (aiText == null || aiText.isEmpty)
+              ? 'لم يصل رد من الذكاء الاصطناعي.'
+              : aiText,
+          sender: 'ai',
+          time: DateTime.now(),
+        ),
+      );
     } catch (e) {
-      // You might want to handle the error or notify the user
+      _addMessage(ModelMessage(
+        message: 'حدث خطأ أثناء الاتصال بالذكاء الاصطناعي:\n$e',
+        sender: 'system',
+        time: DateTime.now(),
+      ));
+    } finally {
+      _setTyping(false);
     }
+  }
+
+  void _addMessage(ModelMessage msg) {
+    if (!mounted) return;
+    setState(() => _messages.add(msg));
+    _scrollToBottom();
+  }
+
+  void _setTyping(bool v) {
+    if (!mounted) return;
+    setState(() => _isTyping = v);
+    _scrollToBottom();
   }
 
   void _scrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_scrollController.hasClients) {
-        _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeOut,
-        );
-      }
+      if (!mounted || !_scrollController.hasClients) return;
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent + 80,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeOut,
+      );
     });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  Color _bubbleColor(String sender) {
+    if (sender == 'user') return AppColors.primaryColor;
+    if (sender == 'ai') return AppColors.primaryColor.withOpacity(0.78);
+    return Colors.redAccent; // system/error
   }
 
   @override
@@ -109,19 +127,19 @@ class _AiChatViewState extends State<AiChatView> {
     return Scaffold(
       appBar: AppBar(
         forceMaterialTransparency: true,
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
-          },
+        leading: Builder(
+          builder: (ctx) => IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () => Scaffold.of(ctx).openDrawer(),
+          ),
         ),
         title: Row(
           children: [
             LottieBuilder.asset(
               'assets/json/aicht.json',
               fit: BoxFit.cover,
-              width: 80.w,
-              height: 80.h,
+              width: 48.w,
+              height: 48.h,
             ),
             Gap(10.w),
             Text(
@@ -142,73 +160,61 @@ class _AiChatViewState extends State<AiChatView> {
             child: _messages.isEmpty
                 ? Stack(
                     children: [
-                      Positioned(
-                        left: 10,
-                        bottom: 10,
-                        right: 10,
-                        top: 10,
+                      Positioned.fill(
                         child: LottieBuilder.asset(
                           'assets/json/chat_ai_body.json',
-                          width: 100.w,
-                          height: 100.h,
+                          fit: BoxFit.contain,
                         ),
                       ),
                       Positioned(
-                        left: 10,
-                        bottom: 10,
+                        left: 12.w,
+                        bottom: 12.h,
                         child: LottieBuilder.asset(
                           'assets/json/chat_loding.json',
-                          fit: BoxFit.cover,
-                          width: 30.w,
-                          height: 30.h,
+                          width: 36.w,
+                          height: 36.h,
                         ),
                       ),
                     ],
                   )
-                : Stack(
-                    children: [
-                      ListView.builder(
-                        itemCount: _messages.length,
-                        controller: _scrollController,
-                        itemBuilder: (context, index) {
-                          final message = _messages[index];
+                : ListView.separated(
+                    controller: _scrollController,
+                    padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+                    itemCount: _messages.length + (_isTyping ? 1 : 0),
+                    separatorBuilder: (_, __) => Gap(6.h),
+                    itemBuilder: (context, index) {
+                      if (_isTyping && index == _messages.length) {
+                        return Align(
+                          alignment: Alignment.centerLeft,
+                          child: LottieBuilder.asset(
+                            'assets/json/chat_loding.json',
+                            width: 36.w,
+                            height: 36.h,
+                          ),
+                        );
+                      }
 
-                          show = false;
-
-                          return BubbleSpecialOne(
-                            text: message.message,
-                            isSender: message.sender == 'user',
-                            color: AppColors.primaryColor,
-                            textStyle: TextStyle(
-                              fontSize: 20.sp,
-                              color: AppColors.whiteColor,
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          );
-                        },
-                      ),
-                      show
-                          ? Positioned(
-                              left: 10,
-                              bottom: 10,
-                              child: LottieBuilder.asset(
-                                'assets/json/chat_loding.json',
-                                fit: BoxFit.cover,
-                                width: 30.w,
-                                height: 30.h,
-                              ),
-                            )
-                          : Container(),
-                    ],
+                      final msg = _messages[index];
+                      return BubbleSpecialOne(
+                        text: msg.message,
+                        isSender: msg.sender == 'user',
+                        color: _bubbleColor(msg.sender),
+                        textStyle: TextStyle(
+                          fontSize: 16.sp,
+                          color: Colors.white,
+                          fontStyle: msg.sender == 'system'
+                              ? FontStyle.italic
+                              : FontStyle.normal,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      );
+                    },
                   ),
           ),
           MessageBar(
             onSend: (message) {
-              sendMessage(message);
-              setState(() {
-                show = true;
-              });
+              if (message.trim().isEmpty) return;
+              _sendAi(message);
             },
           ),
         ],

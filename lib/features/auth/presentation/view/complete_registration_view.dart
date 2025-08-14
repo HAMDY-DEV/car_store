@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:car_store/core/function/routing.dart';
 import 'package:car_store/core/function/show_error_dialogs.dart';
 import 'package:car_store/core/util/colors.dart';
-import 'package:car_store/core/util/contaner_style.dart';
-import 'package:car_store/core/util/text_style.dart';
 import 'package:car_store/core/widget/bottom_navigation_bar.dart';
 import 'package:car_store/core/widget/custom_button.dart';
 import 'package:car_store/core/widget/show_loading_and_error.dart';

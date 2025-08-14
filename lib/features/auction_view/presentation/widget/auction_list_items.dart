@@ -7,7 +7,6 @@ import 'package:car_store/features/auction_view/model/auction_model.dart';
 import 'package:car_store/features/auction_view/presentation/manager/auction_cubit.dart';
 import 'package:car_store/features/auction_view/presentation/manager/auction_state.dart';
 import 'package:car_store/features/auction_view/presentation/widget/creator_item.dart';
-import 'package:car_store/features/auction_view/presentation/widget/lottie_builder_celebrate.dart';
 import 'package:car_store/features/auction_view/presentation/widget/winner_item.dart';
 import 'package:car_store/features/profile_view/model/user_model.dart';
 import 'package:flutter/material.dart';
