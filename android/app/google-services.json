@@ -8,7 +8,26 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:890052968608:android:0910e5bae2d6b34de749c5",
+        "mobilesdk_app_id": "1:890052968608:android:c0aa338073d59dc8e749c5",
+        "android_client_info": {
+          "package_name": "com.example.car_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5UHwKmbZqxs7ZhtiMtgVnlVSbEFBHPhI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:890052968608:android:bca628d47d88251be749c5",
         "android_client_info": {
           "package_name": "com.example.car_store"
         }

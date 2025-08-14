@@ -52,18 +52,18 @@ dependencies:
   fluttertoast: ^8.2.6
   gap: ^3.0.1
   geocoding: ^3.0.0
-  geolocator: ^8.2.1
+  geolocator: ^14.0.2
   google_fonts: ^6.2.1
   google_generative_ai: ^0.4.5
   google_maps_flutter: ^2.7.0
   image_picker: ^1.1.2
-  intl: ^0.19.0
+  intl: ^0.20.2
   lottie: ^3.1.2
   pretty_dio_logger: ^1.4.0
   shared_preferences: ^2.3.1
   shimmer: ^3.0.0
   smooth_page_indicator: ^1.2.0+3
-  syncfusion_flutter_sliders: ^26.1.41
+  syncfusion_flutter_sliders: ^30.2.5
   url_launcher: ^6.3.0
 
 dev_dependencies:

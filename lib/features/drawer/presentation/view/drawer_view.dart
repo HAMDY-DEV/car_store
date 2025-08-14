@@ -1,4 +1,3 @@
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:car_store/core/function/routing.dart';
 import 'package:car_store/core/function/show_error_dialogs.dart';
@@ -191,6 +190,4 @@ class DrawerView extends StatelessWidget {
       ),
     );
   }
-
-
 }

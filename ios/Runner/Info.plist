@@ -45,13 +45,5 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-	<key>CFBundleLocalizations</key>
-	<key>NSLocationWhenInUseUsageDescription</key>
-<string>This app needs access to location when</string>
-<array>
-    <string>en</string>
-    <string>ar</string>
-</array>
 </dict>
 </plist>
-

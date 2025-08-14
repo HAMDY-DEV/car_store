@@ -41,48 +41,54 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBAkRxTI7gtzYHdg2UIkbn6NPbitmdiXbI',
-    appId: '1:890052968608:web:9a81fe413572155ce749c5',
+    apiKey: 'AIzaSyCXYl3NZqvOO4k1oT_v4_7T2FbhI6bugDU',
+    appId: '1:890052968608:web:49eb9025d29aef41e749c5',
     messagingSenderId: '890052968608',
     projectId: 'car-store-2024',
     authDomain: 'car-store-2024.firebaseapp.com',
+    databaseURL: 'https://car-store-2024-default-rtdb.firebaseio.com',
     storageBucket: 'car-store-2024.appspot.com',
-    measurementId: 'G-3Y3SP35HJ7',
+    measurementId: 'G-9KH9GME2LV',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyD5UHwKmbZqxs7ZhtiMtgVnlVSbEFBHPhI',
-    appId: '1:890052968608:android:0910e5bae2d6b34de749c5',
+    appId: '1:890052968608:android:bca628d47d88251be749c5',
     messagingSenderId: '890052968608',
     projectId: 'car-store-2024',
+    databaseURL: 'https://car-store-2024-default-rtdb.firebaseio.com',
     storageBucket: 'car-store-2024.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBpOwQMG62OQRi0P3PWRZ-6ayxgL2fa2gg',
-    appId: '1:890052968608:ios:208425dbe2d2f67be749c5',
+    appId: '1:890052968608:ios:6f2f333f4a302a9fe749c5',
     messagingSenderId: '890052968608',
     projectId: 'car-store-2024',
+    databaseURL: 'https://car-store-2024-default-rtdb.firebaseio.com',
     storageBucket: 'car-store-2024.appspot.com',
     iosBundleId: 'com.example.carStore',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyBpOwQMG62OQRi0P3PWRZ-6ayxgL2fa2gg',
-    appId: '1:890052968608:ios:208425dbe2d2f67be749c5',
+    appId: '1:890052968608:ios:6f2f333f4a302a9fe749c5',
     messagingSenderId: '890052968608',
     projectId: 'car-store-2024',
+    databaseURL: 'https://car-store-2024-default-rtdb.firebaseio.com',
     storageBucket: 'car-store-2024.appspot.com',
     iosBundleId: 'com.example.carStore',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyBAkRxTI7gtzYHdg2UIkbn6NPbitmdiXbI',
-    appId: '1:890052968608:web:bf126cb1ff4f0dcee749c5',
+    apiKey: 'AIzaSyCXYl3NZqvOO4k1oT_v4_7T2FbhI6bugDU',
+    appId: '1:890052968608:web:c53c62bee6675788e749c5',
     messagingSenderId: '890052968608',
     projectId: 'car-store-2024',
     authDomain: 'car-store-2024.firebaseapp.com',
+    databaseURL: 'https://car-store-2024-default-rtdb.firebaseio.com',
     storageBucket: 'car-store-2024.appspot.com',
-    measurementId: 'G-8ZCMSJVT32',
+    measurementId: 'G-D0Q5RL33WM',
   );
+
 }
