@@ -129,8 +129,8 @@ class _AiChatViewState extends State<AiChatView> {
         forceMaterialTransparency: true,
         leading: Builder(
           builder: (ctx) => IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () => Scaffold.of(ctx).openDrawer(),
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context),
           ),
         ),
         title: Row(
